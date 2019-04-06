@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Client</title>
+  </head>
+  <body>
+    <link rel="stylesheet" href="style.css" />
+    <div id="app">
+      <h1>Hi, this is a test client!</h1>
+      Ping the server after every:&nbsp;
+      <input
+        type="number"
+        v-model="ping_frequency"
+        placeholder="seconds"
+        :disabled="interval_id != -1"
+      />
+      <button @click="startPolling()" :disabled="interval_id != -1">
+        Start
+      </button>
+      <button @click="stopPolling()" v-if="interval_id != -1">Stop</button>
+      <button @click="clearMessages()" v-if="messages.length">Clear</button>
+      <div v-if="messages.length">
+        <ul>
+          <li :class="{r: messages.length == 1}" v-for="message in messages">
+            {{ message.ts }}: {{ message.data }} ({{ message.time_taken }}ms)
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script src="js/vue.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
