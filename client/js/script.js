@@ -9,7 +9,7 @@ new Vue({
     startPolling() {
       this.interval_id = setInterval(() => {
         const start = Date.now();
-        fetch("http://localhost:4000/poll")
+        fetch("poll")
           .then(res => {
             if (res.status === 200) {
               return res.json();
