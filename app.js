@@ -23,7 +23,7 @@ app.get("/poll", (req, res) => {
     if (!res.headersSent) {
       res.status(204).send();
     }
-  }, 500);
+  }, 250);
 });
 
 app.get("*", (req, res) => {
@@ -42,4 +42,4 @@ app.listen(port, err => {
 
 setInterval(() => {
   emitter.emit("rand", { data: 100 * Math.random() });
-}, Math.ceil(2000 * Math.random()));
+}, Math.ceil(5000 * Math.random()));
