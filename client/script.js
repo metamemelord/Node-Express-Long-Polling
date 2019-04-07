@@ -14,13 +14,24 @@ theMarker = L.marker([28.7041, 77.1025]).addTo(map);
 new Vue({
   el: "#app",
   data: {
-    ping_frequency: 2000,
+    ping_frequency: null,
     interval_id: -1,
     messages: [],
     coords: [28.7041, 77.1025]
   },
   methods: {
     startPolling() {
+      let ping_frequency = Math.abs(this.ping_frequency * 1000);
+      if (ping_frequency == 0) {
+        this.ping_frequency = 2;
+        ping_frequency = 2000;
+      } else if (ping_frequency < 1000) {
+        this.ping_frequency = 1;
+        ping_frequency = 1000;
+      } else {
+        this.ping_frequency = ping_frequency / 1000;
+      }
+
       this.interval_id = setInterval(() => {
         const start = Date.now();
         fetch("poll")
@@ -60,7 +71,7 @@ new Vue({
               ts: moment(current_time).format("hh:mm:ss A")
             });
           });
-      }, this.ping_frequency);
+      }, ping_frequency);
     },
     stopPolling() {
       clearInterval(this.interval_id);
