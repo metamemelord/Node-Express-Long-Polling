@@ -8,6 +8,9 @@
   </head>
   <body>
     <link rel="stylesheet" href="style.css" />
+    <div id="map-wrapper">
+      <div id="map"></div>
+    </div>
     <div id="app">
       <h1>Hi, this is a test client!</h1>
       Ping the server after every:&nbsp;
@@ -22,7 +25,7 @@
       </button>
       <button @click="stopPolling()" v-if="interval_id != -1">Stop</button>
       <button @click="clearMessages()" v-if="messages.length">Clear</button>
-      <div v-if="messages.length">
+      <div style="margin-top: 316px;" v-if="messages.length">
         <ul>
           <li :class="{r: messages.length == 1}" v-for="message in messages">
             {{ message.ts }}: {{ message.data }} ({{ message.time_taken }}ms)
@@ -30,8 +33,13 @@
         </ul>
       </div>
     </div>
-    <script src="js/vue.min.js"></script>
-    <script src="js/moment.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
